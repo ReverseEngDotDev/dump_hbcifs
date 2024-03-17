@@ -11,10 +11,10 @@ This process is helpful for multi-section firmware files used in BMW (among othe
 CMake links against LZO, UCL and OpenSSL (for MD5). If you install this on a typical user workstation, you will need the "-devel" package.
 
 ## dump_hbcifs help script
-
+```
 Examples: "./dump_hbcifs FILENAME.bin" <-- List the files in FILENAME.bin
           "./dump_hbcifs FILENAME.bin -d DIR -x" <-- Extract all files in FILENAME.bin and put them in directory DIR
-```
+          
           [-mvxbzh -u FILE] [-f FILE] image_file_system_file [-d DIR]
  -b       Extract to basenames of files
  -u FILE  Save a copy of the uncompressed image as FILE
