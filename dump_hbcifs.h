@@ -16,6 +16,7 @@
 #include <zlib.h>
 #include <lzo/lzo1x.h>
 #include <ucl/ucl.h>
+#include <openssl/evp.h>
 
 #include <string>
 

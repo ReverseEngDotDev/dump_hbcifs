@@ -5,6 +5,8 @@ project(dump_hbcifs LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+find_package(OpenSSL REQUIRED)
+
 add_executable(dump_hbcifs main.cpp
     dump_hbcifs.h dump_hbcifs.cpp
     elf.h
@@ -16,7 +18,7 @@ add_executable(dump_hbcifs main.cpp
     hbcifs.h
 )
 
-target_link_libraries(dump_hbcifs -llzo2 -lucl -lz)
+target_link_libraries(dump_hbcifs -llzo2 -lucl -lz OpenSSL::Crypto)
 
 include(GNUInstallDirs)
 install(TARGETS dump_hbcifs

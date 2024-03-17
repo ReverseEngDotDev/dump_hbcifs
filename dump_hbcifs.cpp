@@ -1,7 +1,7 @@
 #include "dump_hbcifs.h"
 #include "hdr.h"
 
-#define _DISABLE_MD5_
+//#define _DISABLE_MD5_
 
 Dump_HBCIFS::Dump_HBCIFS()
 {
@@ -1287,30 +1287,39 @@ void Dump_HBCIFS::display_file(FILE *fp, int ipos, struct image_dirent::image_fi
 void Dump_HBCIFS::compute_md5(FILE *fp, int ipos, struct image_dirent::image_file *ent, unsigned char *md5_result)
 {
 #ifndef _DISABLE_MD5_
+    EVP_MD_CTX *mdctx = EVP_MD_CTX_new();
+    const EVP_MD *md = EVP_md5();
     unsigned char buff[4096];
     int nbytes, n;
-    MD5_CTX md5_ctx;
+    unsigned int md5_result_len;
+
+    //unsigned char buff[4096];
+    //int nbytes, n;
+    //MD5_CTX md5_ctx;
 
     if (fseek(fp, ipos + ent->offset, SEEK_SET) != 0) {
-        error(0, "fseek on source file for MD5 calculation failed: %s\n", strerror(errno));
+        error(0, (char *)("fseek on source file for MD5 calculation failed: %s\n"), strerror(errno));
     }
 
-    memset((unsigned char*)&md5_ctx, 0, sizeof(md5_ctx));
-    MD5Init(&md5_ctx);
+    //memset((unsigned char*)&md5_ctx, 0, sizeof(md5_ctx));
+    //MD5Init(&md5_ctx);
+    EVP_DigestInit_ex(mdctx, md, NULL);
 
     nbytes = ent->size;
 
     while (nbytes > 0) {
         n = min(sizeof buff, nbytes);
         if(fread(buff, n, 1, fp) != 1) {
-            error(0, "Error reading %d bytes for MD5 calculation: %s\n", n, strerror(errno));
+            error(0, (char *)("Error reading %d bytes for MD5 calculation: %s\n"), n, strerror(errno));
         }
 
-        MD5Update(&md5_ctx, buff, n);
+        //MD5Update(&md5_ctx, buff, n);
+        EVP_DigestUpdate(mdctx, buff, (sizeof buff / sizeof *buff));
         nbytes -= n;
     }
 
-    MD5Final(md5_result, &md5_ctx);
+    //MD5Final(md5_result, &md5_ctx);
+    EVP_DigestFinal_ex(mdctx, md5_result, &md5_result_len);
 #endif
 }
 
