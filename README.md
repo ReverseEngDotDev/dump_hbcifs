@@ -4,7 +4,7 @@ Based on : https://github.com/askac/dumpifs , but modified to support IFS, Image
 
 dump_hbcifs will loop through the firmware file looking for supported header types, and if found will process the sub-section. At the end of the sub-section, it will continue to process the firmware file until it reaches EOF.
 
-This process is helpful for multi-section firmware files used in BMW (among other) firmware files, which store the pre-boot, boot, and root separately. If the flag to extract files (-x) is passed to the program along with a directory (-d DIR), it will extract all files across all sections to the same DIR.
+This process is helpful for multi-section firmware files used in QNX vehicle firmware files, which store the pre-boot, boot, and root separately. If the flag to extract files (-x) is passed to the program along with a directory (-d DIR), it will extract all files across all sections to the same DIR.
 
 ## Dependencies
 
@@ -29,7 +29,7 @@ Examples: "./dump_hbcifs FILENAME.bin" <-- List the files in FILENAME.bin
           startup header less reliable.
  -h       Display this help message
 ```
-## Example on a BMW Firmware File
+## Example on a Vehicle QNX Firmware File
 
 [Lines have been removed with "..." to shorten output unnecessary for understanding]
 
