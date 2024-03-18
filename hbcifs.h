@@ -13,7 +13,7 @@ struct hbcifs_header {
     unsigned short crc16_02;
     char flags01;                               //If 02, then checksum exists
     char flags02;
-    char compression01;                         //0x01 = LZO, 0x02 = UCL, 0x04 = UNKNOWN
+    char compression01;                         //0x01 = LZO, 0x03 = UCL, 0x04 = UNKNOWN
     char compression02;
     unsigned int unknown02;
     unsigned int padding[8];
@@ -21,7 +21,7 @@ struct hbcifs_header {
 
 /* We keep the flags as chars so they are endian neutral */
 #define HBCIFS_COMPRESS1_LZO                0x01
-#define HBCIFS_COMPRESS1_UCL                0x02
+#define HBCIFS_COMPRESS1_UCL                0x03
 #define HBCIFS_COMPRESS1_ZLIB               0x04    //A Guess at this point
 
 #endif // HBCIFS_H
